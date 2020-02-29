@@ -32,10 +32,10 @@ namespace WMMCRCNational.Controllers
 
            return View(eventsList.OrderBy(t=>t.EventDate));
         }
-        //[Authorize]
+        //[Authorize]Welcome To The Ride Tracker Application. An application for motorcycle enthusiasts to keep track of the rides they have been on.
         public ActionResult About()
         {
-            ViewBag.Message = "This is an application to record rides in a year.";
+            ViewBag.Message = "Welcome To The Ride Tracker Application. An application for motorcycle enthusiasts to keep track of the rides they have been on.";
 
             return View();
         }
