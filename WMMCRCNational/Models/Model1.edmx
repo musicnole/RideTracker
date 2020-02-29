@@ -1,0 +1,1361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WMMCRCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_ApplicationsDROP20161230">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_MembershipDROP20161230">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="aspnet_PathsDROP20161230">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredPath" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_UsersDROP20161230">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredUserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <EntityType Name="ChapterAddress">
+          <Key>
+            <PropertyRef Name="ChapterAddressId" />
+          </Key>
+          <Property Name="ChapterAddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="StreetAddress1" Type="varchar" MaxLength="250" />
+          <Property Name="StreetAddress2" Type="varchar" MaxLength="250" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="Zip" Type="int" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="Chapters">
+          <Key>
+            <PropertyRef Name="ChapterId" />
+          </Key>
+          <Property Name="ChapterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterName" Type="varchar" MaxLength="250" />
+          <Property Name="ChapterNickName" Type="varchar" MaxLength="150" />
+          <Property Name="ClubHouseAddressID" Type="int" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="GoogleLink" Type="varchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="ChaptersMiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromId" Type="int" Nullable="false" />
+          <Property Name="ToId" Type="int" Nullable="false" />
+          <Property Name="Miles" Type="int" Nullable="false" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="ChaptersMilesNames">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromChapter" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ToChapter" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Miles" Type="int" Nullable="false" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="EventTitle" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="EventDate" Type="date" Nullable="false" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="150" />
+          <Property Name="LastName" Type="varchar" MaxLength="150" />
+          <Property Name="RoadName" Type="varchar" MaxLength="150" />
+          <Property Name="StandupDate" Type="date" />
+          <Property Name="PatchDate" Type="date" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="FullName" Type="varchar" MaxLength="150" />
+          <Property Name="ChapterId" Type="int" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <EntityType Name="Miles">
+          <Key>
+            <PropertyRef Name="MilesId" />
+          </Key>
+          <Property Name="MilesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromId" Type="int" Nullable="false" />
+          <Property Name="ToId" Type="int" Nullable="false" />
+          <Property Name="Miles" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="GoogleUri" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WMMCRC_National_Test.dbo.Miles_bkup20170803' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WMMCRC_National_Test.dbo.Miles_bkup20190729' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Rides">
+          <Key>
+            <PropertyRef Name="RideId" />
+          </Key>
+          <Property Name="RideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="RideDate" Type="date" Nullable="false" />
+          <Property Name="RideFrom" Type="int" Nullable="false" />
+          <Property Name="RideTo" Type="int" Nullable="false" />
+          <Property Name="Miles" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Partial" Type="bit" />
+          <Property Name="VerifiableEvent" Type="bit" />
+          <Property Name="Cage" Type="bit" />
+          <Property Name="RideNotes" Type="varchar" MaxLength="250" />
+          <Property Name="DateModified" Type="date" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="ChapterId" Type="int" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="250" />
+          <Property Name="Name" Type="varchar" MaxLength="150" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__778AC167">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_MembershipDROP20161230" Type="Self.aspnet_MembershipDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__Appli__797309D9">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_MembershipDROP20161230" Type="Self.aspnet_MembershipDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__Appli__7B5B524B">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_MembershipDROP20161230" Type="Self.aspnet_MembershipDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__787EE5A0">
+          <End Role="aspnet_UsersDROP20161230" Type="Self.aspnet_UsersDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_MembershipDROP20161230" Type="Self.aspnet_MembershipDROP20161230" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__7A672E12">
+          <End Role="aspnet_UsersDROP20161230" Type="Self.aspnet_UsersDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_MembershipDROP20161230" Type="Self.aspnet_MembershipDROP20161230" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__7C4F7684">
+          <End Role="aspnet_UsersDROP20161230" Type="Self.aspnet_UsersDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_MembershipDROP20161230" Type="Self.aspnet_MembershipDROP20161230" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__7D439ABD">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_PathsDROP20161230" Type="Self.aspnet_PathsDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_PathsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__7E37BEF6">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_PathsDROP20161230" Type="Self.aspnet_PathsDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_PathsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__7F2BE32F">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_PathsDROP20161230" Type="Self.aspnet_PathsDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_PathsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__00200768">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_UsersDROP20161230" Type="Self.aspnet_UsersDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__01142BA1">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_UsersDROP20161230" Type="Self.aspnet_UsersDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__02084FDA">
+          <End Role="aspnet_ApplicationsDROP20161230" Type="Self.aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Role="aspnet_UsersDROP20161230" Type="Self.aspnet_UsersDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WMMCRCModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_ApplicationsDROP20161230" EntityType="Self.aspnet_ApplicationsDROP20161230" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_MembershipDROP20161230" EntityType="Self.aspnet_MembershipDROP20161230" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_PathsDROP20161230" EntityType="Self.aspnet_PathsDROP20161230" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_UsersDROP20161230" EntityType="Self.aspnet_UsersDROP20161230" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChapterAddress" EntityType="Self.ChapterAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chapters" EntityType="Self.Chapters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChaptersMiles" EntityType="Self.ChaptersMiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChaptersMilesNames" EntityType="Self.ChaptersMilesNames" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Miles" EntityType="Self.Miles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rides" EntityType="Self.Rides" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemUsers" EntityType="Self.SystemUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__778AC167" Association="Self.FK__aspnet_Me__Appli__778AC167">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__797309D9" Association="Self.FK__aspnet_Me__Appli__797309D9">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__7B5B524B" Association="Self.FK__aspnet_Me__Appli__7B5B524B">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__787EE5A0" Association="Self.FK__aspnet_Me__UserI__787EE5A0">
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__7A672E12" Association="Self.FK__aspnet_Me__UserI__7A672E12">
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__7C4F7684" Association="Self.FK__aspnet_Me__UserI__7C4F7684">
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__7D439ABD" Association="Self.FK__aspnet_Pa__Appli__7D439ABD">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_PathsDROP20161230" EntitySet="aspnet_PathsDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__7E37BEF6" Association="Self.FK__aspnet_Pa__Appli__7E37BEF6">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_PathsDROP20161230" EntitySet="aspnet_PathsDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__7F2BE32F" Association="Self.FK__aspnet_Pa__Appli__7F2BE32F">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_PathsDROP20161230" EntitySet="aspnet_PathsDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__00200768" Association="Self.FK__aspnet_Us__Appli__00200768">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__01142BA1" Association="Self.FK__aspnet_Us__Appli__01142BA1">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__02084FDA" Association="Self.FK__aspnet_Us__Appli__02084FDA">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WMMCRCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="ChapterAddress">
+          <Key>
+            <PropertyRef Name="ChapterAddressId" />
+          </Key>
+          <Property Name="ChapterAddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="StreetAddress1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress2" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="Zip" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="ChapterId" />
+          </Key>
+          <Property Name="ChapterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ChapterNickName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ClubHouseAddressID" Type="Int32" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+		  <Property Name="Active" Type="Boolean" />
+          <Property Name="GoogleLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ChaptersMile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromId" Type="Int32" Nullable="false" />
+          <Property Name="ToId" Type="Int32" Nullable="false" />
+          <Property Name="Miles" Type="Int32" Nullable="false" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ChaptersMilesName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromChapter" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ToChapter" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Miles" Type="Int32" Nullable="false" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="EventTitle" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RoadName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="StandupDate" Type="DateTime" Precision="0" />
+          <Property Name="PatchDate" Type="DateTime" Precision="0" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Mile">
+          <Key>
+            <PropertyRef Name="MilesId" />
+          </Key>
+          <Property Name="MilesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromId" Type="Int32" Nullable="false" />
+          <Property Name="ToId" Type="Int32" Nullable="false" />
+          <Property Name="Miles" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="GoogleUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="RideId" />
+          </Key>
+          <Property Name="RideId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="RideDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RideFrom" Type="Int32" Nullable="false" />
+          <Property Name="RideTo" Type="Int32" Nullable="false" />
+          <Property Name="Miles" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Partial" Type="Boolean" />
+          <Property Name="VerifiableEvent" Type="Boolean" />
+          <Property Name="Cage" Type="Boolean" />
+          <Property Name="RideNotes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="WMMCRCEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="ChapterAddresses" EntityType="Self.ChapterAddress" />
+          <EntitySet Name="Chapters" EntityType="Self.Chapter" />
+          <EntitySet Name="ChaptersMiles" EntityType="Self.ChaptersMile" />
+          <EntitySet Name="ChaptersMilesNames" EntityType="Self.ChaptersMilesName" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Miles" EntityType="Self.Mile" />
+          <EntitySet Name="Rides" EntityType="Self.Ride" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="SystemUsers" EntityType="Self.SystemUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="aspnet_ApplicationsDROP20161230" EntityType="WMMCRCModel.aspnet_ApplicationsDROP20161230" />
+          <EntitySet Name="aspnet_MembershipDROP20161230" EntityType="WMMCRCModel.aspnet_MembershipDROP20161230" />
+          <EntitySet Name="aspnet_PathsDROP20161230" EntityType="WMMCRCModel.aspnet_PathsDROP20161230" />
+          <EntitySet Name="aspnet_UsersDROP20161230" EntityType="WMMCRCModel.aspnet_UsersDROP20161230" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__778AC167" Association="WMMCRCModel.FK__aspnet_Me__Appli__778AC167">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__797309D9" Association="WMMCRCModel.FK__aspnet_Me__Appli__797309D9">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__7B5B524B" Association="WMMCRCModel.FK__aspnet_Me__Appli__7B5B524B">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__7D439ABD" Association="WMMCRCModel.FK__aspnet_Pa__Appli__7D439ABD">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_PathsDROP20161230" EntitySet="aspnet_PathsDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__7E37BEF6" Association="WMMCRCModel.FK__aspnet_Pa__Appli__7E37BEF6">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_PathsDROP20161230" EntitySet="aspnet_PathsDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__7F2BE32F" Association="WMMCRCModel.FK__aspnet_Pa__Appli__7F2BE32F">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_PathsDROP20161230" EntitySet="aspnet_PathsDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__00200768" Association="WMMCRCModel.FK__aspnet_Us__Appli__00200768">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__01142BA1" Association="WMMCRCModel.FK__aspnet_Us__Appli__01142BA1">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__02084FDA" Association="WMMCRCModel.FK__aspnet_Us__Appli__02084FDA">
+            <End Role="aspnet_ApplicationsDROP20161230" EntitySet="aspnet_ApplicationsDROP20161230" />
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__787EE5A0" Association="WMMCRCModel.FK__aspnet_Me__UserI__787EE5A0">
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__7A672E12" Association="WMMCRCModel.FK__aspnet_Me__UserI__7A672E12">
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__7C4F7684" Association="WMMCRCModel.FK__aspnet_Me__UserI__7C4F7684">
+            <End Role="aspnet_UsersDROP20161230" EntitySet="aspnet_UsersDROP20161230" />
+            <End Role="aspnet_MembershipDROP20161230" EntitySet="aspnet_MembershipDROP20161230" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="aspnet_ApplicationsDROP20161230">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredApplicationName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_MembershipDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Me__Appli__778AC167" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_MembershipDROP20161230" />
+          <NavigationProperty Name="aspnet_MembershipDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Me__Appli__797309D9" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_MembershipDROP20161230" />
+          <NavigationProperty Name="aspnet_MembershipDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Me__Appli__7B5B524B" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_MembershipDROP20161230" />
+          <NavigationProperty Name="aspnet_PathsDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Pa__Appli__7D439ABD" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_PathsDROP20161230" />
+          <NavigationProperty Name="aspnet_PathsDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Pa__Appli__7E37BEF6" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_PathsDROP20161230" />
+          <NavigationProperty Name="aspnet_PathsDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Pa__Appli__7F2BE32F" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_PathsDROP20161230" />
+          <NavigationProperty Name="aspnet_UsersDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Us__Appli__00200768" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_UsersDROP20161230" />
+          <NavigationProperty Name="aspnet_UsersDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Us__Appli__01142BA1" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_UsersDROP20161230" />
+          <NavigationProperty Name="aspnet_UsersDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Us__Appli__02084FDA" FromRole="aspnet_ApplicationsDROP20161230" ToRole="aspnet_UsersDROP20161230" />
+        </EntityType>
+        <EntityType Name="aspnet_MembershipDROP20161230">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Me__Appli__778AC167" FromRole="aspnet_MembershipDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Me__Appli__797309D9" FromRole="aspnet_MembershipDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Me__Appli__7B5B524B" FromRole="aspnet_MembershipDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_UsersDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Me__UserI__787EE5A0" FromRole="aspnet_MembershipDROP20161230" ToRole="aspnet_UsersDROP20161230" />
+          <NavigationProperty Name="aspnet_UsersDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Me__UserI__7A672E12" FromRole="aspnet_MembershipDROP20161230" ToRole="aspnet_UsersDROP20161230" />
+          <NavigationProperty Name="aspnet_UsersDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Me__UserI__7C4F7684" FromRole="aspnet_MembershipDROP20161230" ToRole="aspnet_UsersDROP20161230" />
+        </EntityType>
+        <EntityType Name="aspnet_PathsDROP20161230">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredPath" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Pa__Appli__7D439ABD" FromRole="aspnet_PathsDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Pa__Appli__7E37BEF6" FromRole="aspnet_PathsDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Pa__Appli__7F2BE32F" FromRole="aspnet_PathsDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+        </EntityType>
+        <EntityType Name="aspnet_UsersDROP20161230">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredUserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Us__Appli__00200768" FromRole="aspnet_UsersDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Us__Appli__01142BA1" FromRole="aspnet_UsersDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_ApplicationsDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Us__Appli__02084FDA" FromRole="aspnet_UsersDROP20161230" ToRole="aspnet_ApplicationsDROP20161230" />
+          <NavigationProperty Name="aspnet_MembershipDROP20161230" Relationship="WMMCRCModel.FK__aspnet_Me__UserI__787EE5A0" FromRole="aspnet_UsersDROP20161230" ToRole="aspnet_MembershipDROP20161230" />
+          <NavigationProperty Name="aspnet_MembershipDROP201612301" Relationship="WMMCRCModel.FK__aspnet_Me__UserI__7A672E12" FromRole="aspnet_UsersDROP20161230" ToRole="aspnet_MembershipDROP20161230" />
+          <NavigationProperty Name="aspnet_MembershipDROP201612302" Relationship="WMMCRCModel.FK__aspnet_Me__UserI__7C4F7684" FromRole="aspnet_UsersDROP20161230" ToRole="aspnet_MembershipDROP20161230" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__778AC167">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_MembershipDROP20161230" Role="aspnet_MembershipDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__Appli__797309D9">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_MembershipDROP20161230" Role="aspnet_MembershipDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__Appli__7B5B524B">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_MembershipDROP20161230" Role="aspnet_MembershipDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__7D439ABD">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_PathsDROP20161230" Role="aspnet_PathsDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_PathsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__7E37BEF6">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_PathsDROP20161230" Role="aspnet_PathsDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_PathsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__7F2BE32F">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_PathsDROP20161230" Role="aspnet_PathsDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_PathsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__00200768">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_UsersDROP20161230" Role="aspnet_UsersDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__01142BA1">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_UsersDROP20161230" Role="aspnet_UsersDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__02084FDA">
+          <End Type="WMMCRCModel.aspnet_ApplicationsDROP20161230" Role="aspnet_ApplicationsDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_UsersDROP20161230" Role="aspnet_UsersDROP20161230" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_ApplicationsDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__787EE5A0">
+          <End Type="WMMCRCModel.aspnet_UsersDROP20161230" Role="aspnet_UsersDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_MembershipDROP20161230" Role="aspnet_MembershipDROP20161230" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__7A672E12">
+          <End Type="WMMCRCModel.aspnet_UsersDROP20161230" Role="aspnet_UsersDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_MembershipDROP20161230" Role="aspnet_MembershipDROP20161230" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__7C4F7684">
+          <End Type="WMMCRCModel.aspnet_UsersDROP20161230" Role="aspnet_UsersDROP20161230" Multiplicity="1" />
+          <End Type="WMMCRCModel.aspnet_MembershipDROP20161230" Role="aspnet_MembershipDROP20161230" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_UsersDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_MembershipDROP20161230">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WMMCRCModelStoreContainer" CdmEntityContainer="WMMCRCEntities1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="WMMCRCModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="WMMCRCModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="WMMCRCModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="WMMCRCModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="WMMCRCModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChapterAddresses">
+            <EntityTypeMapping TypeName="WMMCRCModel.ChapterAddress">
+              <MappingFragment StoreEntitySet="ChapterAddress">
+                <ScalarProperty Name="ChapterAddressId" ColumnName="ChapterAddressId" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="StreetAddress1" ColumnName="StreetAddress1" />
+                <ScalarProperty Name="StreetAddress2" ColumnName="StreetAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chapters">
+            <EntityTypeMapping TypeName="WMMCRCModel.Chapter">
+              <MappingFragment StoreEntitySet="Chapters">
+                <ScalarProperty Name="GoogleLink" ColumnName="GoogleLink" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
+                <ScalarProperty Name="ChapterNickName" ColumnName="ChapterNickName" />
+                <ScalarProperty Name="ClubHouseAddressID" ColumnName="ClubHouseAddressID" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+				<ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChaptersMiles">
+            <EntityTypeMapping TypeName="WMMCRCModel.ChaptersMile">
+              <MappingFragment StoreEntitySet="ChaptersMiles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FromId" ColumnName="FromId" />
+                <ScalarProperty Name="ToId" ColumnName="ToId" />
+                <ScalarProperty Name="Miles" ColumnName="Miles" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChaptersMilesNames">
+            <EntityTypeMapping TypeName="WMMCRCModel.ChaptersMilesName">
+              <MappingFragment StoreEntitySet="ChaptersMilesNames">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FromChapter" ColumnName="FromChapter" />
+                <ScalarProperty Name="ToChapter" ColumnName="ToChapter" />
+                <ScalarProperty Name="Miles" ColumnName="Miles" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="WMMCRCModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EventTitle" ColumnName="EventTitle" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="WMMCRCModel.Member">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="RoadName" ColumnName="RoadName" />
+                <ScalarProperty Name="StandupDate" ColumnName="StandupDate" />
+                <ScalarProperty Name="PatchDate" ColumnName="PatchDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Miles">
+            <EntityTypeMapping TypeName="WMMCRCModel.Mile">
+              <MappingFragment StoreEntitySet="Miles">
+                <ScalarProperty Name="GoogleUri" ColumnName="GoogleUri" />
+                <ScalarProperty Name="MilesId" ColumnName="MilesId" />
+                <ScalarProperty Name="FromId" ColumnName="FromId" />
+                <ScalarProperty Name="ToId" ColumnName="ToId" />
+                <ScalarProperty Name="Miles" ColumnName="Miles" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rides">
+            <EntityTypeMapping TypeName="WMMCRCModel.Ride">
+              <MappingFragment StoreEntitySet="Rides">
+                <ScalarProperty Name="RideId" ColumnName="RideId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="RideDate" ColumnName="RideDate" />
+                <ScalarProperty Name="RideFrom" ColumnName="RideFrom" />
+                <ScalarProperty Name="RideTo" ColumnName="RideTo" />
+                <ScalarProperty Name="Miles" ColumnName="Miles" />
+                <ScalarProperty Name="Partial" ColumnName="Partial" />
+                <ScalarProperty Name="VerifiableEvent" ColumnName="VerifiableEvent" />
+                <ScalarProperty Name="Cage" ColumnName="Cage" />
+                <ScalarProperty Name="RideNotes" ColumnName="RideNotes" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="WMMCRCModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemUsers">
+            <EntityTypeMapping TypeName="WMMCRCModel.SystemUser">
+              <MappingFragment StoreEntitySet="SystemUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="WMMCRCModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="aspnet_ApplicationsDROP20161230">
+            <EntityTypeMapping TypeName="WMMCRCModel.aspnet_ApplicationsDROP20161230">
+              <MappingFragment StoreEntitySet="aspnet_ApplicationsDROP20161230">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_MembershipDROP20161230">
+            <EntityTypeMapping TypeName="WMMCRCModel.aspnet_MembershipDROP20161230">
+              <MappingFragment StoreEntitySet="aspnet_MembershipDROP20161230">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PathsDROP20161230">
+            <EntityTypeMapping TypeName="WMMCRCModel.aspnet_PathsDROP20161230">
+              <MappingFragment StoreEntitySet="aspnet_PathsDROP20161230">
+                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_UsersDROP20161230">
+            <EntityTypeMapping TypeName="WMMCRCModel.aspnet_UsersDROP20161230">
+              <MappingFragment StoreEntitySet="aspnet_UsersDROP20161230">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

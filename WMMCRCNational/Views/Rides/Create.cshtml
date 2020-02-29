@@ -1,0 +1,155 @@
+﻿@model WMMCRCNational.Models.Ride
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.DateCreated)
+
+    <div class="form-horizontal">
+        <h4>Ride</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Member</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(c => c.MemberId, ViewData["MemberDD"] as SelectList)
+                    @Html.ValidationMessageFor(model => model.MemberId, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RideDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RideDate, new { htmlAttributes = new { @class = "form-control", id = "datepicker2", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.RideDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Ride From </label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(c => c.RideFrom, ViewData["RideFromDD"] as SelectList)
+                    @Html.ValidationMessageFor(model => model.RideFrom, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Ride To </label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(c => c.RideTo, ViewData["RideToDD"] as SelectList)
+                    @Html.ValidationMessageFor(model => model.RideTo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Miles, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Miles, new { htmlAttributes = new { @class = "form-control", @id = "RideMiles", @name = "RideMiles" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Partial, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.CheckBoxFor(model => model.Partial, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VerifiableEvent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.CheckBoxFor(model => model.VerifiableEvent, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.CheckBoxFor(model => model.Cage, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RideNotes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.RideNotes, new { htmlAttributes = new { @id = "RideNotes", @name = "RideNotes" } })
+            </div>
+        </div>
+
+
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+    @Styles.Render("~/Content/jquery-ui.css")
+    @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+    <script>
+
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+
+        $(function () {
+            $("#datepicker2").datepicker();
+        });
+
+        $(function () {
+            $("#RideFrom").change(function () {
+
+                var val = $(this).val();
+                var val2 = $("#RideTo").val();
+                var url = '/Rides/UpdateMiles';
+
+                $.get(url, { FromID: val, ToID: val2 }, function (data) {
+                    $("#RideMiles").val(data);
+                });
+
+            });
+        });
+
+        $(function () {
+            $("#RideTo").change(function () {
+
+                var val = $(this).val();
+                var val2 = $("#RideFrom").val();
+            
+                var url = '/Rides/UpdateMiles';
+
+                $.get(url, { ToID: val, FromID: val2 }, function (data) {
+                    $("#RideMiles").val(data);
+                });
+
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,98 @@
+﻿@model WMMCRCNational.Models.Ride
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Ride</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Member Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride Date")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride From")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideFromName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride To")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideToName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Miles")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miles)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Partial")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Partial)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Verifiable Event")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerifiableEvent)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cage")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cage)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride Notes")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideNotes)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

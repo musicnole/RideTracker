@@ -1,0 +1,46 @@
+﻿@model WMMCRCNational.Models.Mile
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Details of Chapter Distance</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("From Clubhouse")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.FromChapterAddress)
+        </dd>
+        <dt>
+            @Html.DisplayName("To Clubhouse")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.ToChapterAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Miles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miles)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MilesId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

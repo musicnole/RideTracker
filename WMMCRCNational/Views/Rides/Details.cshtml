@@ -1,0 +1,91 @@
+﻿@model WMMCRCNational.Models.Ride
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ride</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Member Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride Date")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride From")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideFromName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride To")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideToName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Miles")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miles)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Partial")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Partial)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Verifiable Event")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerifiableEvent)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cage")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cage)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ride Notes")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RideNotes)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.RideId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

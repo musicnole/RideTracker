@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("RC App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Riders", "", "Members")</li>
+                    }
+                    <li>@Html.ActionLink("Chapters", "", "Chapters")</li>
+                    <li>@Html.ActionLink("Miles", "", "Miles")</li>
+                    <li>@Html.ActionLink("Rides", "", "Rides")</li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Events", "", "Events")</li>
+                    }
+                    <li>@Html.ActionLink("Visits Report", "", "ChapterVisitsReport")</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                    
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            var loggedInUser = HttpContext.Current.User.Identity.Name;
+                            if (loggedInUser == "Joe DeForte")
+                            {
+                                <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                            }
+
+                        }
+                    }*@
+
+                    @*<li>@Html.ActionLink("Roles", "", "ASPNetUserRoles")</li>
+    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year  Joe D</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WMMCRCNational.Models.ChapterAddress>
+
+@{
+    ViewBag.Title = "Chapter Addresses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ChapterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetAddress1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetAddress2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zip)
+        </th>
+       <!-- Moved to Chapter 
+           <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>           -->
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChapterId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StreetAddress1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StreetAddress2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zip)
+            </td>
+           <!-- Moved to Chapter  <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td> -->
+          
+            <td>
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ChapterAddressId })
+                }
+
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.ChapterAddressId })
+                }
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ChapterAddressId })
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>

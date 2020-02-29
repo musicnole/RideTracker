@@ -1,0 +1,71 @@
+﻿@model  PagedList.IPagedList<WMMCRCNational.Models.Mile>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Miles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Miles between Chapters</h2>
+
+@using (Html.BeginForm("Index", "Miles", FormMethod.Get))
+{
+    <p>
+        Find "From Chapter" by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("From Chapter", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("To Chapter", "Index", new { sortOrder = ViewBag.ToSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Miles", "Index", new { sortOrder = ViewBag.MilesSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Miles)
+            </td>
+            <td>
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edit ", "Edit", new { id = item.MilesId })
+                    <br />
+                }
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink(" Details", "Details", new { id = item.MilesId })
+                    <br />
+                }
+
+                @Html.ActionLink(" Google Map", "OpenGoogleMap", new { MapUri = item.GoogleUri }, new { target = "_blank" })
+            </td>
+
+        </tr>
+    }
+
+</table>
+<br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>

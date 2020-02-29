@@ -1,0 +1,94 @@
+﻿@model WMMCRCNational.Models.ChapterAddress
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChapterAddress</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChapterId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChapterId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetAddress1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetAddress1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetAddress2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetAddress2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zip)
+        </dd>
+<!-- Moved to Chapter 
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+-->
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ChapterAddressId })
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

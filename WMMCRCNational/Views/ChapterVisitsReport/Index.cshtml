@@ -1,0 +1,74 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+
+
+@{
+    ViewBag.Title = "VisitReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>ChapterVisitReport</h4>
+@using (Html.BeginForm("Index", "ChapterVisitsReport", FormMethod.Get))
+{
+
+<div class="checkbox">
+    @Html.DropDownList("Years", ViewData["YearDD"] as SelectList, "Select Year")
+    <input type="submit" value="Search" class="btn btn-default" />
+</div>
+}
+
+<div>
+    @Html.ActionLink("View Members Total Miles", "Index", "MilesTotalsReport",null, new { @id = "totalMilesRpt" })
+</div>
+
+ <table>
+    <thead>
+        <tr class="report">
+            @foreach (DataColumn col in Model.Columns)
+            {
+                <th class="report">@col.ColumnName</th>
+            }
+</tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Rows)
+        {
+            <tr class="report">
+                @foreach (DataColumn col in Model.Columns)
+                {
+                    <td class="report">@row[col.ColumnName]</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+    @Styles.Render("~/Content/jquery-ui.css")
+    @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+    <script>
+
+        $(function () {
+            $("#totalMilesRpt").click(function () {
+
+                var val = $(this).val();
+                var val2 = $("#Years").val();
+                var url = 'MilesTotalsReport/Index';
+                var path = '@Url.Content("~/MilesTotalsReport/Index")' + "?YearSelected=" + val2
+                $(this).attr("href", path);
+
+
+            });
+        });
+
+    </script>
+}

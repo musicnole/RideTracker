@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WMMCRCNational.Models.Event>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <br />
+    <div style="float:left;">
+
+        <a>  <img src="~/Images/RoadGlideRiding.jpg" height="300" width="400" /></a>
+
+    </div>
+    <div style="float:left;">
+        <table class="table">
+            <tr>
+                <th>
+                    Chapter
+                </th>
+                <th>
+                    Event
+                </th>
+                <th>
+                    Date
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChapterName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventDate)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WMMCRCNational.Models.MilesTotalsReport>
+
+@{
+    ViewBag.Title = "MilesTotalsReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MilesTotalsReport</h2>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "ChapterVisitsReport")
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Miles)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miles)
+        </td>
+    </tr>
+}
+
+</table>

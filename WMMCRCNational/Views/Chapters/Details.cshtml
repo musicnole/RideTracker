@@ -1,0 +1,55 @@
+﻿@model WMMCRCNational.Models.ChapterDetails
+
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Common Address</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Chapter</h4>
+        <hr />
+        <div>
+            @foreach (var item in Model.Chapters)
+            {
+                <div class="form-horizontal">
+                    @Html.DisplayFor(modelItem => item.ChapterName)
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @foreach (var itemA in Model.ChapterAddresses)
+                        {
+                            @Html.DisplayFor(modelItem => itemA.StreetAddress1)
+                            <br />
+                            if (!String.IsNullOrEmpty(itemA.StreetAddress2))
+                            {
+                                @Html.DisplayFor(modelItem => itemA.StreetAddress2)
+                                <br />
+                            }
+                            @Html.DisplayFor(modelItem => itemA.City)
+                            <br />
+                            @Model.State
+                            <br />
+                            @Html.DisplayFor(modelItem => itemA.Zip)
+                           
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("      |       Edit Address ", "Edit", "ChapterAddresses", new { id = Model.Chapters.FirstOrDefault().ChapterId }, null)
+    }
+</div>
+

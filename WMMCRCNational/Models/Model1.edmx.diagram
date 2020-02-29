@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f72f44ac38ac4a8f8ab843caff7eb5ff" Name="Diagram1">
+        <EntityTypeShape EntityType="WMMCRCModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.ChapterAddress" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.Chapter" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.ChaptersMile" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.ChaptersMilesName" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.Event" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.Member" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.Mile" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.Ride" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.State" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMMCRCModel.SystemUser" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="WMMCRCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="WMMCRCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="WMMCRCModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WMMCRCModel.aspnet_ApplicationsDROP20161230" Width="1.5" PointX="9.375" PointY="16.5" />
+        <EntityTypeShape EntityType="WMMCRCModel.aspnet_MembershipDROP20161230" Width="1.5" PointX="13.875" PointY="17.875" />
+        <EntityTypeShape EntityType="WMMCRCModel.aspnet_PathsDROP20161230" Width="1.5" PointX="11.625" PointY="26.25" />
+        <EntityTypeShape EntityType="WMMCRCModel.aspnet_UsersDROP20161230" Width="1.5" PointX="11.625" PointY="22" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Me__Appli__778AC167" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Me__Appli__797309D9" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Me__Appli__7B5B524B" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Pa__Appli__7D439ABD" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Pa__Appli__7E37BEF6" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Pa__Appli__7F2BE32F" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Us__Appli__00200768" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Us__Appli__01142BA1" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Us__Appli__02084FDA" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Me__UserI__787EE5A0" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Me__UserI__7A672E12" />
+        <AssociationConnector Association="WMMCRCModel.FK__aspnet_Me__UserI__7C4F7684" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
