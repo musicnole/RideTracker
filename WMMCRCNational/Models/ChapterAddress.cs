@@ -26,7 +26,7 @@ namespace WMMCRCNational.Models
 
         public int? StateId { get; set; }
 
-        public int? Zip { get; set; }
+        public string Zip { get; set; }
 
         public bool? Active { get; set; }
 
