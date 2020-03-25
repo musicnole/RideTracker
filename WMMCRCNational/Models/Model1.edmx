@@ -133,7 +133,7 @@
           <Property Name="StreetAddress2" Type="varchar" MaxLength="250" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="StateId" Type="int" />
-          <Property Name="Zip" Type="int" />
+          <Property Name="Zip" Type="varchar" MaxLength="250" />
           <Property Name="Active" Type="bit" />
           <Property Name="DateModified" Type="date" />
           <Property Name="DateCreated" Type="date" />
@@ -615,7 +615,7 @@ warning 6002: The table/view 'WMMCRC_National_Test.dbo.Miles_bkup20190729' does 
           <Property Name="StreetAddress2" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StateId" Type="Int32" />
-          <Property Name="Zip" Type="Int32" />
+          <Property Name="Zip" Type="varchar" MaxLength="250" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="DateModified" Type="DateTime" Precision="0" />
           <Property Name="DateCreated" Type="DateTime" Precision="0" />
