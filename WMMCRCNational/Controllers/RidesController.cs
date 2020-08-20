@@ -32,6 +32,12 @@ namespace WMMCRCNational.Models
             ViewBag.memberId = MemberId;
             ViewBag.searchYear = years;
 
+            //If years is null default to current year
+            if (string.IsNullOrEmpty(years))
+            {
+                years = System.DateTime.Now.Year.ToString();
+            }
+
             if (!string.IsNullOrWhiteSpace(searchString))
             {
                 page = 1;
