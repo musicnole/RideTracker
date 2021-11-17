@@ -15,19 +15,19 @@ namespace WMMCRCNational.Models
 
         // GET: Chapters
 //        [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string active)
         {
+            FillDropDowns();
             List<Chapter> chapters = new List<Chapter>();
+            if (active == null) active = "True";
+            chapters = Helpers.Chapters.GetChapters(db, active);
 
-            chapters = (from ch in db.Chapters
-                        //where ch.Active == true
-                        select ch).ToList();
             foreach (Chapter ch in chapters)
             {
                 if (ch.Active)
-                { ch.activeValue = "Yes"; }
+                { ch.activeValue = "True"; }
                 else
-                { ch.activeValue = "No"; }
+                { ch.activeValue = "False"; }
 
             }
             return View(chapters);
@@ -195,6 +195,24 @@ namespace WMMCRCNational.Models
 
             return Redirect(MapUri);
         }
-        
+
+        private void FillDropDowns()
+        {
+            //Active dd
+
+            //This is a great way to select the distinct Values to populate the DD
+            //var activedd = new SelectList(db.Members.ToList(), "Active", "Active");
+            //SelectList distinctActive = new SelectList(activedd.GroupBy( o => o.Value).Select(v => v.FirstOrDefault().Value.ToString()));
+
+            List<string> activeList = new List<string>();
+            activeList.Add("True");
+            activeList.Add("False");
+            activeList.Add("ALL");
+            var rideYear = new SelectList(activeList);
+            ViewData["ActiveDD"] = activeList;
+            ViewBag.active = new SelectList(activeList);
+
+        }
+
     }
 }

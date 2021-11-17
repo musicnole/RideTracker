@@ -5,11 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Member List</h2>
+<h2>Riders List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+@using (Html.BeginForm("Index", "Members", FormMethod.Get))
+{
+
+    <div class="two-column">
+        <label class="int-box">Active Riders Selection:</label>
+        @Html.DropDownList("active", ViewData["ActiveDD"] as SelectList, new { onChange = "changeTextboxes(this.value);" })
+
+    </div>
+    <br />
+}
+
 <table class="table">
     <tr>
         <th>
@@ -52,16 +65,38 @@
                 {
                     @Html.ActionLink("Details", "Details", new { id = item.MemberId })
                     <br />
-                   
 
-               
+
+
                 }
                 @*@if (Request.IsAuthenticated)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MemberId })
-                }*@
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MemberId })
+                    }*@
 
             </td>
         </tr>
     }
 </table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+    @Styles.Render("~/Content/jquery-ui.css")
+    @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+    <script>
+
+        function changeTextboxes(val) {
+
+            var url = '/Members?active=' + val;
+            window.location.href = url;
+        }
+
+    </script>
+}
