@@ -20,7 +20,7 @@ namespace WMMCRCNational.Models
         // GET: Rides
         // [Authorize]
         
-        public ActionResult Index(string searchString, string currentFilter, int? page, int? MemberId, string years)
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? MemberId, string years, string button)
         {
             Rides_MembersModel viewModel = new Rides_MembersModel();
             

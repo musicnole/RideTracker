@@ -111,5 +111,20 @@ namespace WMMCRCNational.Helpers
 
             return eventList;
         }
+
+       public static IOrderedEnumerable<Event> GetSearchChapter(IOrderedEnumerable<Event> eventListOrig, string chapterId)
+        {
+            Int32 chapter = 0;
+
+            IOrderedEnumerable<Event> eventList;
+            chapter = Convert.ToInt32(chapterId);
+            eventList = (from ch in eventListOrig
+                         where ch.ChapterId == chapter
+                         select ch).ToList().OrderByDescending(s => s.EventDate);
+
+
+
+            return eventList;
+        }
     }
 }
