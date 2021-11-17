@@ -123,7 +123,7 @@ namespace WMMCRCNational.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "ChapterId,ChapterName,ChapterNickName,ClubHouseAddressID,DateModified,DateCreated,Active")] Chapter chapter)
+        public ActionResult Edit([Bind(Include = "ChapterId,ChapterName,ChapterNickName,ClubHouseAddressID,DateModified,DateCreated,Active,GoogleLink")] Chapter chapter)
         {
             chapter.DateModified = System.DateTime.Now;
             chapter.DateCreated = chapter.DateCreated;
