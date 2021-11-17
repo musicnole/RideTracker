@@ -15,9 +15,15 @@ namespace WMMCRCNational.Models
 
         // GET: Members
         //[Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string active)
         {
-            return View(db.Members.ToList());
+            FillDropDowns();
+
+            if (active == null) active = "True";
+
+            List<Member> membersList = new List<Member>();
+
+            return View(membersList = Helpers.Members.GetMembers(db, active));
         }
 
         // GET: Members/Details/5
@@ -139,5 +145,25 @@ namespace WMMCRCNational.Models
             }
             base.Dispose(disposing);
         }
+
+        private void FillDropDowns()
+        {
+            //Active dd
+
+            //This is a great way to select the distinct Values to populate the DD
+            //var activedd = new SelectList(db.Members.ToList(), "Active", "Active");
+            //SelectList distinctActive = new SelectList(activedd.GroupBy( o => o.Value).Select(v => v.FirstOrDefault().Value.ToString()));
+
+            List<string> activeList = new List<string>();
+            activeList.Add("True");
+            activeList.Add("False");
+            activeList.Add("ALL");
+            var rideYear = new SelectList(activeList);
+            ViewData["ActiveDD"] = activeList;
+            ViewBag.active = new SelectList(activeList);
+
+        }
     }
+
+
 }

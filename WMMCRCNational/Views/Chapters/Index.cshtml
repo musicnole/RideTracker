@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WMMCRCNational.Models.Chapter>
 
 @{
-    
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,6 +10,18 @@
 <p>
     @Html.ActionLink("Create New Chapter", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Chapters", FormMethod.Get))
+{
+
+    <div class="two-column">
+        <label class="int-box">Active Chapters Selection:</label>
+        @Html.DropDownList("active", ViewData["ActiveDD"] as SelectList, new { onChange = "changeTextboxes(this.value);" })
+
+    </div>
+    <br />
+}
+
 <table class="table">
     <tr>
         <th>
@@ -33,23 +45,45 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ChapterNickName)
             </td>
-           <td>
-              @Html.DisplayFor(modelitem => item.activeValue)
+            <td>
+                @Html.DisplayFor(modelitem => item.activeValue)
 
-                </td>
+            </td>
 
-                <td>
-                    @if (Request.IsAuthenticated)
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ChapterId })
-                        <br />
-                    }
-                    
-                        @Html.ActionLink("View Details", "Details", new { id = item.ChapterId })
+            <td>
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ChapterId })
                     <br />
-                    @Html.ActionLink(" Google Map", "OpenGoogleMap", new { MapUri = item.GoogleLink }, new { target = "_blank" })
-                </td>
-            </tr>
+                }
+
+                @Html.ActionLink("View Details", "Details", new { id = item.ChapterId })
+                <br />
+                @Html.ActionLink(" Google Map", "OpenGoogleMap", new { MapUri = item.GoogleLink }, new { target = "_blank" })
+            </td>
+        </tr>
+    }
+
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+    @Styles.Render("~/Content/jquery-ui.css")
+    @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+    <script>
+
+        function changeTextboxes(val) {
+
+            var url = '/Chapters?active=' + val;
+            window.location.href = url;
         }
 
-    </table>
+    </script>
+}

@@ -9,12 +9,23 @@
 
 <h2>Miles between Chapters</h2>
 
+@*@using (Html.BeginForm("Index", "Miles", FormMethod.Get))
+    {
+        <p>
+            Find "From Chapter" by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" class="btn btn-default" />
+        </p>
+    }*@
+
 @using (Html.BeginForm("Index", "Miles", FormMethod.Get))
 {
-    <p>
-        Find "From Chapter" by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" class="btn btn-default" />
-    </p>
+
+    <div class="two-column">
+        <label class="int-box">From Chapters Selection:</label>
+        @Html.DropDownList("chapter", ViewData["ChapterDD"] as SelectList, new { onChange = "changeTextboxes(this.value);" })
+
+    </div>
+    <br />
 }
 
 <table class="table">
@@ -65,7 +76,32 @@
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("Index",
-            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentId = ViewBag.currentId }))
         <p>
             @Html.ActionLink("Create New", "Create")
         </p>
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            @Scripts.Render("~/bundles/jqueryui")
+            @Styles.Render("~/Content/cssjqryUi")
+            @Scripts.Render("~/Scripts/jquery.validate.min.js")
+            @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+            @Styles.Render("~/Content/jquery-ui.css")
+            @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+            @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+            <script>
+
+                function changeTextboxes(val) {
+
+                    var url = '/Miles?chapter=' + val;
+                    window.location.href = url;
+                }
+
+                
+            </script>
+        }

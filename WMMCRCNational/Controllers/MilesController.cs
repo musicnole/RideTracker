@@ -17,8 +17,14 @@ namespace WMMCRCNational.Models
 
         // GET: Miles
        // [Authorize]
-        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, string currentId,  int chapter = 0)
         {
+            searchString = Helpers.Rides.GetChapterName(db, chapter);
+            
+            // Put in the current id and this line to make sure that the dd retains the value when paging
+            if (!string.IsNullOrEmpty(currentId) && chapter == 0) chapter = Convert.ToInt32(currentId);
+           
+            FillDropDowns(chapter);
             //https://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "FromName" : "";
 
@@ -31,7 +37,7 @@ namespace WMMCRCNational.Models
             //A ViewBag property provides the view with the current sort order, because this must be included in the paging links in order to keep the sort order the same while paging:
 
             ViewBag.CurrentSort = sortOrder;
-
+            
             if (!string.IsNullOrWhiteSpace(searchString))
             {
                 page = 1;
@@ -42,6 +48,7 @@ namespace WMMCRCNational.Models
             }
 
             ViewBag.CurrentFilter = searchString;
+            ViewBag.currentId = chapter;
             //End of first set of code for paging
 
             List<Mile> milesListOrig = Helpers.Miles.GetClubhouseName(searchString, db);
@@ -188,5 +195,20 @@ namespace WMMCRCNational.Models
             }
             base.Dispose(disposing);
         }
+
+
+        private void FillDropDowns(int chapter)
+        {
+            //Ride From dd
+            //Putting this code in to select the correct Chapter when Paging, paging uses currentFilterb but need to get the filters ID
+            var rideFromdd = new SelectList(Helpers.Chapters.GetChapters(db,"True"), "ChapterId", "ChapterName", selectedValue: chapter );
+
+            ViewData["ChapterDD"] = rideFromdd;
+        
+        }
+
+
+
+
     }
 }
