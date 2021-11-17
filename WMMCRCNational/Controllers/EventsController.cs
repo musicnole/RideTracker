@@ -15,10 +15,11 @@ namespace WMMCRCNational.Controllers
         private WMMCRC db = new WMMCRC();
 
         // GET: Events
-        public ActionResult Index(string searchString, string years)
+        public ActionResult Index(string searchString, string years, string chapter)
         {
             FillDropDowns();
             ViewBag.searchYear = years;
+            ViewBag.searchChapter = chapter;
 
             IOrderedEnumerable<Event> returnEvents;
 
@@ -34,6 +35,11 @@ namespace WMMCRCNational.Controllers
             if (!string.IsNullOrWhiteSpace(searchString))
             {
                 returnEvents = Helpers.Events.GetSearchEventName(returnEvents, searchString);
+            }
+
+            if (!string.IsNullOrWhiteSpace(chapter))
+            {
+                returnEvents = Helpers.Events.GetSearchChapter(returnEvents, chapter);
             }
 
             return View(returnEvents.OrderBy(t=> t.EventDate));
@@ -57,6 +63,12 @@ namespace WMMCRCNational.Controllers
             var rideYear = new SelectList(years);
             ViewData["YearDD"] = years;
             ViewBag.years = new SelectList(years);
+
+            //Chapters
+            var chapterSearch = new SelectList(db.Chapters.ToList(), "ChapterId", "ChapterName");
+            ViewData["ChapterDD"] = chapterSearch;
+            ViewBag.chapter = new SelectList(chapterSearch);
+
         }
 
         // GET: Events/Details/5

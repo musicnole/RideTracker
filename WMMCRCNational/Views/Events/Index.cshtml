@@ -15,17 +15,23 @@
 
 @using (Html.BeginForm("Index", "Events", FormMethod.Get))
 {
-    
     <div class="two-column">
-        <label class="int-box">Find "Member Rides" by Year:</label>
-        @Html.DropDownList("years", ViewData["YearDD"] as SelectList, "Select Year")
+        <label class="int-box">Find Events by Year:</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DropDownList("years", ViewData["YearDD"] as SelectList, "Select Year")
         <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no year select then default to the current year </label>
     </div>
-
+    <br />
     <div class="two-column">
-        <label class="int-box">Search Ride Notes:</label>
-        @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <label class="int-box">Search Event Title:</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBox("searchString", ViewBag.CurrentFilter as string)
     </div>
+    <br />
+    <div class="two-column">
+        <label class="int-box">Find Events by Chapter:</label>
+        &nbsp;@Html.DropDownList("chapter", ViewData["ChapterDD"] as SelectList, "Select Chapter")
+        <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no chapter select then default to All Chapters </label>
+    </div>
+
     <br />
     <div class="two-column">
         <input type="submit" value="Search" id="search" class="btn btn-default" />&nbsp;&nbsp;&nbsp;
@@ -41,34 +47,35 @@
             Chapter Name
         </th>
         <th>
-           Event Title
+            Event Title
         </th>
         <th>
-          Event Date
+            Event Date
         </th>
-       
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChapterName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventDate)
-        </td>
-       
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChapterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDate)
+            </td>
 
-         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EventId })
-        </td>
-    </tr>
-}
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EventId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EventId })
+            </td>
+        </tr>
+    }
 
 </table>
