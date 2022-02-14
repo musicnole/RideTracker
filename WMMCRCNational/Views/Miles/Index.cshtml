@@ -54,12 +54,12 @@
                 @Html.DisplayFor(modelItem => item.Miles)
             </td>
             <td>
-                @if (Request.IsAuthenticated)
+                @if (ViewBag.admin)
                 {
                     @Html.ActionLink("Edit ", "Edit", new { id = item.MilesId })
                     <br />
                 }
-                @if (Request.IsAuthenticated)
+                @if (ViewBag.admin)
                 {
                     @Html.ActionLink(" Details", "Details", new { id = item.MilesId })
                     <br />
@@ -77,9 +77,9 @@
 
         @Html.PagedListPager(Model, page => Url.Action("Index",
             new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentId = ViewBag.currentId }))
-        <p>
+        @*<p> Admin is going to control the Miles Between Chapters Population
             @Html.ActionLink("Create New", "Create")
-        </p>
+        </p>*@
 
 
         @section Scripts {

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WMMCRCNational.Helpers;
 using WMMCRCNational.Models;
 
 namespace WMMCRCNational.Controllers
@@ -13,8 +15,8 @@ namespace WMMCRCNational.Controllers
        // [Authorize]
         public ActionResult Index()
         {
-           // List<Event> eventsList = Helpers.Events.LookupChapterNames(db);
-            
+            // List<Event> eventsList = Helpers.Events.LookupChapterNames(db);
+
             var eventListObj = (from a in db.Events
                                 where a.EventDate >= System.DateTime.Now
                                 select new { a.EventId, a.ChapterId, a.EventTitle, a.EventDate, a.DateModified, a.DateCreated });
@@ -46,5 +48,6 @@ namespace WMMCRCNational.Controllers
 
             return View();
         }
+
     }
 }

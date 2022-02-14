@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/Images/WMNation.jpg">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -21,36 +22,51 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Riders", "", "Members")</li>
-                    }
                     <li>@Html.ActionLink("Chapters", "", "Chapters")</li>
-                    <li>@Html.ActionLink("Miles", "", "Miles")</li>
-                    <li>@Html.ActionLink("Rides", "", "Rides")</li>
 
-                    @if (Request.IsAuthenticated)
+                    @if (Request.IsAuthenticated && (@User.IsInRole("Admin")) || (@User.IsInRole("Road Captain")))
                     {
-                        <li>@Html.ActionLink("Events", "", "Events")</li>
+                        <li>@Html.ActionLink("Members", "", "Members")</li>
                     }
-                    <li>@Html.ActionLink("Visits Report", "", "ChapterVisitsReport")</li>
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+
                     
+
+
                     @if (Request.IsAuthenticated)
                     {
-                        if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        <li>@Html.ActionLink("Miles", "", "Miles")</li>
+                        <li>@Html.ActionLink("Rides", "", "Rides")</li>
+                        if (@User.IsInRole("Admin") || @User.IsInRole("Road Captain"))
                         {
-                            var loggedInUser = HttpContext.Current.User.Identity.Name;
-                            if (loggedInUser == "Joe DeForte")
-                            {
-                                <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                            }
 
+                            <li>@Html.ActionLink("Events", "", "Events")</li>
                         }
-                    }*@
+
+                        <li>@Html.ActionLink("Visits Report", "", "ChapterVisitsReport")</li>
+                    }
+                    @*else
+        {
+            <li>@Html.ActionLink("Rides", "", "RidesReadOnly")</li>
+        }*@
+
+
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+
+        @if (Request.IsAuthenticated)
+        {
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var loggedInUser = HttpContext.Current.User.Identity.Name;
+                if (loggedInUser == "Joe DeForte")
+                {
+                    <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                }
+
+            }
+        }*@
 
                     @*<li>@Html.ActionLink("Roles", "", "ASPNetUserRoles")</li>
-    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
 
                 @Html.Partial("_LoginPartial")

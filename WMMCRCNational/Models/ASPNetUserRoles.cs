@@ -22,5 +22,6 @@ namespace WMMCRCNational.Models
 
         [NotMapped]
         public string RoleName { get; set; }
+         
     }
 }

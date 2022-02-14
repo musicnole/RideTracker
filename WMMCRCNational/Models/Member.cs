@@ -11,18 +11,49 @@ namespace WMMCRCNational.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Member
     {
+        [Key]
         public int MemberId { get; set; }
+
+        [Required]
+        [StringLength(150)]
         public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(150)]
         public string LastName { get; set; }
+
+        [StringLength(150)]
         public string RoadName { get; set; }
-        public Nullable<System.DateTime> StandupDate { get; set; }
-        public Nullable<System.DateTime> PatchDate { get; set; }
-        public Nullable<bool> Active { get; set; }
-        public Nullable<System.DateTime> DateModified { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
+
+        [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:M/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? StandupDate { get; set; }
+
+        [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:M/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? PatchDate { get; set; }
+
+        public Boolean? Active { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? DateModified { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? DateCreated { get; set; }
+
+        [StringLength(150)]
         public string FullName { get; set; }
+
+        public int ChapterId { get; set; }
+        [StringLength(250)]
+        public string Email { get; set; }
+
+        [NotMapped]
+        public int ChapterName { get; set; }
     }
 }

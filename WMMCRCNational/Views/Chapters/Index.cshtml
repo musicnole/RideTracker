@@ -7,9 +7,13 @@
 
 <h2>Chapters List</h2>
 
-<p>
-    @Html.ActionLink("Create New Chapter", "Create")
-</p>
+@if (ViewBag.admin)
+{
+    <p>
+        @Html.ActionLink("Create New Chapter", "Create")
+    </p>
+}
+
 
 @using (Html.BeginForm("Index", "Chapters", FormMethod.Get))
 {
@@ -51,7 +55,7 @@
             </td>
 
             <td>
-                @if (Request.IsAuthenticated)
+                @if (ViewBag.admin)
                 {
                     @Html.ActionLink("Edit", "Edit", new { id = item.ChapterId })
                     <br />

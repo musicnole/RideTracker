@@ -38,6 +38,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) |
+    @if (ViewBag.admin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EventId })
+    }
+    &nbsp; &nbsp;
     @Html.ActionLink("Back to List", "Index")
 </p>

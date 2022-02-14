@@ -47,7 +47,7 @@
 }
 <div>
     @Html.ActionLink("Back to List", "Index")
-    @if (Request.IsAuthenticated)
+    @if (ViewBag.admin)
     {
         @Html.ActionLink("      |       Edit Address ", "Edit", "ChapterAddresses", new { id = Model.Chapters.FirstOrDefault().ChapterId }, null)
     }

@@ -218,6 +218,7 @@
     <Compile Include="Helpers\Chapters.cs" />
     <Compile Include="Helpers\ChapterVisitReport.cs" />
     <Compile Include="Helpers\Events.cs" />
+    <Compile Include="Helpers\GlobalHelper.cs" />
     <Compile Include="Helpers\Miles.cs" />
     <Compile Include="Helpers\MilesTotalsReport.cs" />
     <Compile Include="Helpers\Members.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\ChaptersController.cs" />
+    <Compile Include="Controllers\RidesReadOnlyController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -324,6 +326,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\RoadGlideRiding.jpg" />
+    <Content Include="Images\WMNation.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -489,6 +492,11 @@
     <Content Include="Views\Rides\Details.cshtml" />
     <Content Include="Views\Rides\Edit.cshtml" />
     <Content Include="Views\Rides\Index.cshtml" />
+    <Content Include="Views\RidesReadOnly\Create.cshtml" />
+    <Content Include="Views\RidesReadOnly\Delete.cshtml" />
+    <Content Include="Views\RidesReadOnly\Details.cshtml" />
+    <Content Include="Views\RidesReadOnly\Edit.cshtml" />
+    <Content Include="Views\RidesReadOnly\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

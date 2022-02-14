@@ -7,7 +7,7 @@ using WMMCRCNational.Models;
 
 namespace WMMCRCNational.Helpers
 {
-    public class MilesTotalsReport
+    public class MilesTotalsRpt
     {
         public static int GetMilesTotal(int MemberId, string year,WMMCRC db)
         {

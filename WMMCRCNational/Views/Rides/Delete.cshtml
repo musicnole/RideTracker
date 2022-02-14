@@ -90,9 +90,14 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div class="form-actions no-color">
+
+    @Html.ActionLink("Back to List", "Index")
+    &nbsp;&nbsp;&nbsp;
+    @if (ViewBag.admin || ViewBag.roadCaptain)
+    {
+        <input type="submit" value="Delete" class="btn btn-default" />
+    }
+</div>
     }
 </div>

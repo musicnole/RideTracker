@@ -198,7 +198,8 @@
           <Property Name="DateModified" Type="date" />
           <Property Name="DateCreated" Type="date" />
           <Property Name="FullName" Type="varchar" MaxLength="150" />
-          <Property Name="ChapterId" Type="int" Nullable="false" DefaultValue="0" />
+          <Property Name="ChapterId" Type="int" Nullable="false"/>
+		  <Property Name="Email" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Miles">
           <Key>
@@ -615,7 +616,7 @@ warning 6002: The table/view 'WMMCRC_National_Test.dbo.Miles_bkup20190729' does 
           <Property Name="StreetAddress2" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StateId" Type="Int32" />
-          <Property Name="Zip" Type="varchar" MaxLength="250" />
+          <Property Name="Zip" Type="String" MaxLength="250" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="DateModified" Type="DateTime" Precision="0" />
           <Property Name="DateCreated" Type="DateTime" Precision="0" />
@@ -1209,6 +1210,8 @@ warning 6002: The table/view 'WMMCRC_National_Test.dbo.Miles_bkup20190729' does 
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
+				<ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+				<ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

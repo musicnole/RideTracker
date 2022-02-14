@@ -8,7 +8,7 @@ namespace WMMCRCNational.Helpers
 {
     public class Members
     {
-        public static List<Member> GetMembers(WMMCRC db, string active)
+        public static List<Member> GetMembers(WMMCRC db, string active, int chapterId)
         {
             List<Member> memberList = new List<Member>();
 
@@ -17,11 +17,13 @@ namespace WMMCRCNational.Helpers
                 case "True":
                     memberList = (from a in db.Members
                                   where a.Active == true
+                                  && a.ChapterId == chapterId
                                   select a).ToList();
                     break;
                 case "False":
                     memberList = (from a in db.Members
                                   where a.Active == false
+                                  && a.ChapterId == chapterId
                                   select a).ToList();
                     break;
                 default:

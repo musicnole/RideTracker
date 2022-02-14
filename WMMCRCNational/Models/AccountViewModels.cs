@@ -49,8 +49,8 @@ namespace WMMCRCNational.Models
 
     public class LoginViewModel
     {
-
-        [Required]
+        //JDD if want to make this required to login, Changing to look at the login user to get the chapter not selecting a chapter
+        //[Required]
         [Display(Name = "Chapter")]
         public string Chapter { get; set; }
 
@@ -74,7 +74,8 @@ namespace WMMCRCNational.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        //JDD if want to make this required to login, Changing to look at the login user to get the chapter not selecting a chapter
+        //[Required]
         [Display(Name = "Chapter")]
         public string Chapter { get; set; }
 

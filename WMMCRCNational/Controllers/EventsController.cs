@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WMMCRCNational.Helpers;
 using WMMCRCNational.Models;
 
 namespace WMMCRCNational.Controllers
@@ -17,6 +18,7 @@ namespace WMMCRCNational.Controllers
         // GET: Events
         public ActionResult Index(string searchString, string years, string chapter)
         {
+            CheckSecurity();
             FillDropDowns();
             ViewBag.searchYear = years;
             ViewBag.searchChapter = chapter;
@@ -74,6 +76,7 @@ namespace WMMCRCNational.Controllers
         // GET: Events/Details/5
         public ActionResult Details(int? id)
         {
+            CheckSecurity();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,6 +95,12 @@ namespace WMMCRCNational.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             CreateChapterDD();
             return View();
         }
@@ -103,6 +112,13 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EventId,ChapterId,EventDate,EventTitle,DateModified,DateCreated")] Event @event)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             @event.DateModified = System.DateTime.Now;
             @event.DateCreated = System.DateTime.Now;
             CreateChapterDD();
@@ -123,6 +139,12 @@ namespace WMMCRCNational.Controllers
         // GET: Events/Edit/5
         public ActionResult Edit(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             CreateChapterDD();
 
             if (id == null)
@@ -144,6 +166,12 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EventId,ChapterId,EventDate,EventTitle,DateModified,DateCreated")] Event @event)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             CreateChapterDD();
             @event.DateModified = System.DateTime.Now;
             @event.DateCreated = @event.DateCreated;
@@ -163,6 +191,13 @@ namespace WMMCRCNational.Controllers
         // GET: Events/Delete/5
         public ActionResult Delete(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -182,6 +217,13 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             Event @event = db.Events.Find(id);
             db.Events.Remove(@event);
             db.SaveChanges();
@@ -203,6 +245,14 @@ namespace WMMCRCNational.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private void CheckSecurity()
+        {
+            SecurityObjectWM secObj = GlobalHelper.SetSecurity(db);
+            ViewBag.admin = secObj.adminRole;
+            ViewBag.roadCaptain = secObj.roadCaptainRole;
+            ViewBag.member = secObj.memberRole;
+
         }
     }
 }

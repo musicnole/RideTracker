@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WMMCRCNational.Helpers;
 using WMMCRCNational.Models;
 
 namespace WMMCRCNational.Controllers
@@ -22,7 +24,7 @@ namespace WMMCRCNational.Controllers
 
         public AccountController()
         {
-            FillDropDowns(null);
+           FillDropDowns(null);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -33,9 +35,17 @@ namespace WMMCRCNational.Controllers
 
         private void FillDropDowns(int? memberSelected)
         {
-            //Chapter DD
-            var chapterdd = new SelectList(db.Chapters.ToList(), "ChapterId", "ChapterName");
-            ViewData["ChapterDD"] = chapterdd;
+            //Dictionary<string, string> userTester = new Dictionary<string, string>();
+            //userTester.Add("Joe DeForte", "$Boston01");
+            //userTester.Add("DacoUser", "Daco93399339%%");
+            //userTester.Add("DacoRC", "DacoRC9339%%");
+            //userTester.Add("ChecoRC", "ChecoRC9339%%");
+            //userTester.Add("ChecoUser", "Checo93399339%%");
+            ////Chapter DD
+            //var chapterdd = new SelectList(userTester);
+            //ViewData["ChapterDD"] = chapterdd;
+
+
         }
         public ApplicationSignInManager SignInManager
         {
@@ -77,47 +87,50 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            //First going to check if the User Selected the correct chapter so can set the chapter in the app
-            //Get the selected chapter Id
-            chapterId = Convert.ToInt32(model.Chapter);
-            // Get the user chapter id in the AspNetUsers table
-            
-            // Get the chapter id for the user trying to login based on thier name
-            if (string.IsNullOrEmpty(model.UserName))
+
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-           // int userChapterId = 0;
-
-            //userChapterId = (from a in db.AspNetUsers
-            //                 where a.UserName == model.UserName
-            //                 select a.ChapterId).FirstOrDefault();
-
-            ////userChapterId = db.AspNetUsers.FirstOrDefault(a => a.UserName == model.UserName).ChapterId;
-
-            //if(chapterId != userChapterId)
-            //{
-            //    ModelState.AddModelError("", "Invalid login attempt. Please select the correct chapter.");
-            //    return View(model);
-            //}
-
-            //Session["ChapterId"] = userChapterId;
-            
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
+            ///TESTING CODE////////////////////////////////////////////////////////
+           // List<string> input = model.Chapter.Split(',').ToList();
+           //string UserName = input[0].TrimStart('[').ToString();
+           // switch (UserName)
+           // {
+           //     case "Joe DeForte":
+           //         model.UserName = "Joe DeForte";
+           //         model.Password = "$Boston01";
+           //         break;
+           //     case "DacoUser":
+           //         model.UserName = "DacoUser";
+           //         model.Password = "Daco93399339%%";
+           //         break;
+           //     case "DacoRC":
+           //         model.UserName = "DacoRC";
+           //         model.Password = "DacoRC9339%%";
+           //         break;
+           //     case "ChecoRC":
+           //         model.UserName = "ChecoRC";
+           //         model.Password = "ChecoRC9339%%";
+           //         break;
+           //     case "ChecoUser":
+           //         model.UserName = "ChecoUser";
+           //         model.Password = "Checo93399339%%";
+           //         break;
+           //     default:
+           //         break;
+           // }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
-            
-
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = SignInManager.UserManager.Users.FirstOrDefault();
+                    string role = GetRoleName(user);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -128,6 +141,14 @@ namespace WMMCRCNational.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        public string GetRoleName(ApplicationUser user)
+        {
+            string roleName = string.Empty;
+            var rolename = SignInManager.UserManager.GetRoles(user.Id).FirstOrDefault();
+
+            return roleName;
         }
 
         //
@@ -178,6 +199,12 @@ namespace WMMCRCNational.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             return View();
         }
 
@@ -188,9 +215,16 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ChapterID = Convert.ToInt32(model.Chapter) };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -223,6 +257,14 @@ namespace WMMCRCNational.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
+
+        [AllowAnonymous]
+        public ActionResult AccessError()
+        {
+            return View("Error");
+        }
+
 
         //
         // GET: /Account/ForgotPassword
@@ -273,6 +315,12 @@ namespace WMMCRCNational.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             //return code == null ? View("Error") : View();
             return View();
         }
@@ -284,6 +332,12 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -311,6 +365,12 @@ namespace WMMCRCNational.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             return View();
         }
 
@@ -330,6 +390,12 @@ namespace WMMCRCNational.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
@@ -347,6 +413,12 @@ namespace WMMCRCNational.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             if (!ModelState.IsValid)
             {
                 return View();
@@ -435,7 +507,7 @@ namespace WMMCRCNational.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            Session["ChapterId"] = "0";
+            Session["ChapterId"] = string.Empty;
             return RedirectToAction("Index", "Home");
         }
 
@@ -465,6 +537,14 @@ namespace WMMCRCNational.Controllers
             }
 
             base.Dispose(disposing);
+        }
+        private void CheckSecurity()
+        {
+            SecurityObjectWM secObj = GlobalHelper.SetSecurity(db);
+            ViewBag.admin = secObj.adminRole;
+            ViewBag.roadCaptain = secObj.roadCaptainRole;
+            ViewBag.member = secObj.memberRole;
+            chapterId = secObj.chapterId;
         }
 
         #region Helpers
@@ -525,5 +605,7 @@ namespace WMMCRCNational.Controllers
             }
         }
         #endregion
+
+
     }
 }

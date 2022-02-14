@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,30 +7,53 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using WMMCRCNational.Helpers;
 
 namespace WMMCRCNational.Models
 {
     public class MembersController : Controller
     {
         private WMMCRC db = new WMMCRC();
+        private bool admin { get; set; }
+        private bool roadCaptain { get; set; }
+        private bool member { get; set; }
+        private int chapterId { get; set; }
 
         // GET: Members
         //[Authorize]
         public ActionResult Index(string active)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             FillDropDowns();
 
             if (active == null) active = "True";
 
             List<Member> membersList = new List<Member>();
 
-            return View(membersList = Helpers.Members.GetMembers(db, active));
+            return View(membersList = Helpers.Members.GetMembers(db, active,chapterId));
         }
+
+       
+
 
         // GET: Members/Details/5
         //[Authorize]
         public ActionResult Details(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -46,6 +70,14 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create()
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+            
+            FillDropDowns();
             return View();
         }
 
@@ -55,13 +87,20 @@ namespace WMMCRCNational.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "MemberId,FirstName,LastName,RoadName,StandupDate,PatchDate,Active,DateModified,DateCreated")] Member member)
+        public ActionResult Create([Bind(Include = "MemberId,FirstName,LastName,RoadName,StandupDate,PatchDate,Active,DateModified,DateCreated,ChapterId,Email")] Member member)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             member.DateModified = System.DateTime.Now;
             member.DateCreated = System.DateTime.Now;
-
+            member.ChapterId = chapterId;
             member.FullName = string.Concat(member.FirstName, " ", member.LastName);
-
+           
             if (ModelState.IsValid)
             {
                 db.Members.Add(member);
@@ -76,6 +115,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,10 +140,18 @@ namespace WMMCRCNational.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "MemberId,FirstName,LastName,RoadName,StandupDate,PatchDate,Active,DateModified,DateCreated,FullName")] Member member)
+        public ActionResult Edit([Bind(Include = "MemberId,FirstName,LastName,RoadName,StandupDate,PatchDate,Active,DateModified,DateCreated,FullName,Email")] Member member)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             member.DateModified = System.DateTime.Now;
             member.DateCreated = member.DateCreated;
+            member.ChapterId = chapterId;
             member.FullName = string.Concat(member.FirstName, " ", member.LastName);
 
             if (ModelState.IsValid)
@@ -113,6 +167,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -162,6 +223,19 @@ namespace WMMCRCNational.Models
             ViewData["ActiveDD"] = activeList;
             ViewBag.active = new SelectList(activeList);
 
+            //Chapters
+            var chapterSearch = new SelectList(db.Chapters.ToList(), "ChapterId", "ChapterName");
+            ViewData["ChapterDD"] = chapterSearch;
+            ViewBag.chapter = new SelectList(chapterSearch);
+        }
+
+        private void CheckSecurity()
+        {
+            SecurityObjectWM secObj = GlobalHelper.SetSecurity(db);
+            ViewBag.admin = secObj.adminRole;
+            ViewBag.roadCaptain = secObj.roadCaptainRole;
+            ViewBag.member = secObj.memberRole;
+            chapterId = secObj.chapterId;
         }
     }
 

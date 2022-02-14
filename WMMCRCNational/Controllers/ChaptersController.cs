@@ -6,17 +6,24 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WMMCRCNational.Helpers;
 
 namespace WMMCRCNational.Models
 {
     public class ChaptersController : Controller
     {
         private WMMCRC db = new WMMCRC();
+        private bool admin { get; set; }
+        private bool roadCaptain { get; set; }
+        private bool member { get; set; }
+        private int chapterId { get; set; }
 
         // GET: Chapters
-//        [Authorize]
+        //        [Authorize]
         public ActionResult Index(string active)
         {
+            CheckSecurity();
+
             FillDropDowns();
             List<Chapter> chapters = new List<Chapter>();
             if (active == null) active = "True";
@@ -33,14 +40,18 @@ namespace WMMCRCNational.Models
             return View(chapters);
         }
 
+       
         // GET: Chapters/Details/5
-  //      [Authorize]
+        //      [Authorize]
         public ActionResult Details(int? id)
         {
+            CheckSecurity();
+           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
 
             ChapterDetails cd = new ChapterDetails();
 
@@ -65,10 +76,6 @@ namespace WMMCRCNational.Models
             {
                 return HttpNotFound();
             }
-
-            //var tuple = new Tuple<Chapter, ChapterAddress>(chapter,chapterAddress);
-            //return View(chapter);
-            //return View(tuple);
             return View(cd);
         }
 
@@ -76,6 +83,12 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create()
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
             return View();
         }
 
@@ -87,6 +100,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create([Bind(Include = "ChapterId,ChapterName,ChapterNickName,ClubHouseAddressID,DateModified,DateCreated,Active")] Chapter chapter)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             chapter.DateModified = System.DateTime.Now;
             chapter.DateCreated = System.DateTime.Now;
 
@@ -105,6 +125,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -125,6 +152,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit([Bind(Include = "ChapterId,ChapterName,ChapterNickName,ClubHouseAddressID,DateModified,DateCreated,Active,GoogleLink")] Chapter chapter)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             chapter.DateModified = System.DateTime.Now;
             chapter.DateCreated = chapter.DateCreated;
 
@@ -141,6 +175,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -159,6 +200,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             Chapter chapter = db.Chapters.Find(id);
 
             DeleteChapterAddress(id);
@@ -172,6 +220,7 @@ namespace WMMCRCNational.Models
 
         private void DeleteChapterAddress(int chapterId)
         {
+            CheckSecurity();
             var chapterAddressID = (from s in db.ChapterAddresses
                                     where s.ChapterId == chapterId
                                     select s.ChapterAddressId).FirstOrDefault();
@@ -213,6 +262,14 @@ namespace WMMCRCNational.Models
             ViewBag.active = new SelectList(activeList);
 
         }
+        private void CheckSecurity()
+        {
+            SecurityObjectWM secObj = GlobalHelper.SetSecurity(db);
+            ViewBag.admin = secObj.adminRole;
+            ViewBag.roadCaptain = secObj.roadCaptainRole;
+            ViewBag.member = secObj.memberRole;
+            chapterId = secObj.chapterId;
 
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Data.Entity.SqlServer;
 using System.Web.UI.HtmlControls;
+using WMMCRCNational.Helpers;
 
 namespace WMMCRCNational.Models
 {
@@ -16,14 +17,13 @@ namespace WMMCRCNational.Models
     {
         public int? memberSelected { get; set; }
         private WMMCRC db = new WMMCRC();
-
+        private int chapterId { get; set; }
         // GET: Rides
-        // [Authorize]
-        
         public ActionResult Index(string searchString, string currentFilter, int? page, int? MemberId, string years, string button)
         {
+            CheckSecurity();
+
             Rides_MembersModel viewModel = new Rides_MembersModel();
-            
             FillDropDowns(null);
             //Code added for Paging
             //The first time the page is displayed, or if the user hasn't clicked a paging or sorting link, all the parameters will be null.  If a paging link is clicked, the page variable will contain the page number to display.
@@ -54,7 +54,7 @@ namespace WMMCRCNational.Models
             IOrderedEnumerable<Ride> returnRides;
             
             // This Returns all the rides and the Clubhouse Names
-            List<Ride> ridesList = Helpers.Rides.GetLisMemberNames(db, years);
+            List<Ride> ridesList = Helpers.Rides.GetLisMemberNames(db, years, chapterId);
 
             // If the year is not specified then want to default to this years rides
             if (string.IsNullOrWhiteSpace(years))
@@ -83,13 +83,14 @@ namespace WMMCRCNational.Models
             int pageNumber = (page ?? 1);
 
             return View(returnRides.ToPagedList(pageNumber, pageSize));
-           // return View(viewModel);
+           
         }
         
         // GET: Rides/Details/5
         //[Authorize]
         public ActionResult Details(int? id)
         {
+            CheckSecurity();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -111,8 +112,14 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
 
-             memberSelected =id;
+            memberSelected =id;
              FillDropDowns(memberSelected);
 
             return View();
@@ -122,15 +129,19 @@ namespace WMMCRCNational.Models
         {
             //Member dd
 
-            //// OLD var memberdd = new SelectList(db.Members.ToList(), "MemberId", "FullName");
+            if (Session["ChapterId"] != null && !string.IsNullOrEmpty(Session["ChapterId"].ToString()))
+            {
+                chapterId = Convert.ToInt32(Session["ChapterId"]);
+            }
 
             var memberdd = (from a in db.Members
                             where a.Active == true
+                            && a.ChapterId == chapterId
                             select a.FullName).FirstOrDefault();
 
             ViewData["MemberDD"] = memberdd;
             //using viewbag  
-            ViewBag.memberdd = new SelectList(db.Members.ToList().Where(a => a.Active == true), "MemberId", "FullName");
+            ViewBag.memberdd = new SelectList(db.Members.ToList().Where(a => a.Active == true && a.ChapterId== chapterId), "MemberId", "FullName");
             if (memberSelected != null)
             {
                 ViewBag.MemberId = memberSelected;
@@ -177,6 +188,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create([Bind(Include = "RideId,MemberId,RideDate,RideFrom,RideTo,Miles,DateModified,DateCreated,Partial,VerifiableEvent,Cage,RideNotes")] Ride ride)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             var memberId = Request.Form["MemberId"].ToString();
 
             //This is the article to fix the Jquery issue on loading the miles texbox
@@ -220,6 +238,12 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
 
             FillDropDowns(null);
 
@@ -243,6 +267,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit([Bind(Include = "RideId,MemberId,RideDate,RideFrom,RideTo,Miles,DateModified,DateCreated,Partial,VerifiableEvent,Cage,RideNotes")] Ride ride)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             var memberId = Request.Form["MemberId"].ToString();
 
             ride.DateModified = System.DateTime.Now;
@@ -273,6 +304,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -294,6 +332,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin && !ViewBag.roadCaptain))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             Ride ride = db.Rides.Find(id);
             db.Rides.Remove(ride);
             db.SaveChanges();
@@ -306,6 +351,16 @@ namespace WMMCRCNational.Models
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void CheckSecurity()
+        {
+            SecurityObjectWM secObj = GlobalHelper.SetSecurity(db);
+            ViewBag.admin = secObj.adminRole;
+            ViewBag.roadCaptain = secObj.roadCaptainRole;
+            ViewBag.member = secObj.memberRole;
+            chapterId = secObj.chapterId;
+
         }
     }
 }

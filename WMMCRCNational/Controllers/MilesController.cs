@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WMMCRCNational.Models;
 using PagedList;
+using WMMCRCNational.Helpers;
 
 namespace WMMCRCNational.Models
 {
@@ -19,6 +20,14 @@ namespace WMMCRCNational.Models
        // [Authorize]
         public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, string currentId,  int chapter = 0)
         {
+            //Security if not logged in then redirect
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
+            CheckSecurity();
+
             searchString = Helpers.Rides.GetChapterName(db, chapter);
             
             // Put in the current id and this line to make sure that the dd retains the value when paging
@@ -69,11 +78,20 @@ namespace WMMCRCNational.Models
 
         }
 
+      
+
         // GET: Miles/Details/5
-       // [Authorize]
+        // [Authorize]
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
+           if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -100,6 +118,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create()
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+           
             return View();
         }
 
@@ -111,6 +136,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Create([Bind(Include = "MilesId,FromId,ToId,Miles,Active,DateModified,DateCreated,GoogleUri")] Mile mile)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Miles.Add(mile);
@@ -125,6 +157,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -148,6 +187,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Edit([Bind(Include = "MilesId,FromId,ToId,Miles,Active,DateModified,DateCreated,GoogleUri")] Mile mile)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             mile.DateModified = System.DateTime.Now;
             mile.DateCreated = mile.DateCreated;
             if (ModelState.IsValid)
@@ -163,6 +209,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -181,6 +234,13 @@ namespace WMMCRCNational.Models
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
+            CheckSecurity();
+            //Security if not logged in then redirect
+            if ((System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false) || (!ViewBag.admin))
+            {
+                return RedirectToAction("AccessError", "Account");
+            }
+
             Mile mile = db.Miles.Find(id);
             db.Miles.Remove(mile);
             db.SaveChanges();
@@ -206,8 +266,14 @@ namespace WMMCRCNational.Models
             ViewData["ChapterDD"] = rideFromdd;
         
         }
+        private void CheckSecurity()
+        {
+            SecurityObjectWM secObj = GlobalHelper.SetSecurity(db);
+            ViewBag.admin = secObj.adminRole;
+            ViewBag.roadCaptain = secObj.roadCaptainRole;
+            ViewBag.member = secObj.memberRole;
 
-
+        }
 
 
     }

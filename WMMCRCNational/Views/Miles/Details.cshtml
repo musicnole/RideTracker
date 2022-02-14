@@ -41,6 +41,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MilesId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (ViewBag.admin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MilesId })
+    }|
+        @Html.ActionLink("Back to List", "Index")
 </p>

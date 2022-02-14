@@ -8,26 +8,30 @@ using WMMCRCNational.Models;
 
 namespace WMMCRCNational.Helpers
 {
+   
     public class ChapterVisitReport
     {
-        public static DataTable CreateReport(WMMCRC db, string year)
+        private static int chapterId { get; set; }
+
+        public static DataTable CreateReport(WMMCRC db, string year,int ChapterId)
         {
-            Dictionary<int, string> memberList = GetMembersList(db);
+            chapterId = ChapterId;
+            Dictionary<int, string> memberList = GetMembersList(db, ChapterId);
 
             Dictionary<int, string> chapterList = GetChaptersList(db);
 
             DataTable reportDt  = CreateReportDt(memberList, chapterList);
 
-            PopulateReportTable(db, memberList, chapterList, reportDt, year);
+            PopulateReportTable(db, memberList, chapterList, reportDt, year, ChapterId);
 
             return reportDt;
         }
 
-        private static void PopulateReportTable(WMMCRC db, Dictionary<int, string> memberList, Dictionary<int, string> chapterList, DataTable reportDt, string year)
+        private static void PopulateReportTable(WMMCRC db, Dictionary<int, string> memberList, Dictionary<int, string> chapterList, DataTable reportDt, string year,int ChapterId)
         {
 
             int memberId = 0;
-            int chapterId = 0;
+            int chapterId = ChapterId;
             string memberName = string.Empty;
             string chapterName = string.Empty;
             int trips = 0;
@@ -37,7 +41,7 @@ namespace WMMCRCNational.Helpers
                 chapterName = row[0].ToString();
                 chapterId = chapterList.FirstOrDefault(x => x.Value == chapterName).Key;
 
-                if (chapterId == 1) continue;
+                //if (chapterId == 1) continue;
 
                 foreach (DataColumn column in reportDt.Columns)
                 {
@@ -192,7 +196,7 @@ namespace WMMCRCNational.Helpers
 
             foreach (var chapter in chapterList)
             {
-                if(chapter.Key !=1)
+                if(chapter.Key != chapterId)
                 dt.Rows.Add(chapter.Value);
             }
             dt.Rows.Add("Totals");
@@ -209,11 +213,11 @@ namespace WMMCRCNational.Helpers
             return chapterList;
         }
 
-        private static Dictionary<int, string> GetMembersList(WMMCRC db)
+        private static Dictionary<int, string> GetMembersList(WMMCRC db, int ChapterId)
         {
             Dictionary<int, string> memberList = new Dictionary<int, string>();
             memberList = db.Members
-                           .Where(a => a.Active == true)
+                           .Where(a => a.Active == true && a.ChapterId == ChapterId)
                             .ToDictionary(a => a.MemberId,
                                            a => a.FullName);
             return memberList;

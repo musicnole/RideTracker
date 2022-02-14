@@ -1,0 +1,212 @@
+﻿@model PagedList.IPagedList<WMMCRCNational.Models.Ride>
+
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ride List</h2>
+
+
+@using (Html.BeginForm("Index", "RidesReadOnly", FormMethod.Get))
+{
+
+    <div class="two-column">
+        <label class="int-box">Active Chapters Selection:</label>
+        @Html.DropDownList("chapter", ViewData["ChapterDD"] as SelectList, "Select Member", new { onChange = "changeTextboxes(this.value);" })
+    </div>
+    
+
+    <div class="two-column">
+        <label class="int-box">Find "Member Rides" by name:</label>
+        @Html.DropDownList("MemberId", ViewData["MemberDD"] as SelectList, "Select Member")
+    </div>
+
+    <div class="two-column">
+        <label class="int-box">Find "Member Rides" by Year:</label>
+        @Html.DropDownList("years", ViewData["YearDD"] as SelectList, "Select Year")
+        <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no year select then default to the current year </label>
+    </div>
+
+    <div class="two-column">
+        <label class="int-box">Search Ride Notes:</label>
+        @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+    </div>
+    <br />
+    <div class="two-column">
+        <input type="submit" value="Search" id="search" class="btn btn-default" />&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="Reset Search" id="reset" class="btn btn-default" />
+    </div>
+    <br />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Member
+        </th>
+        <th>
+            Ride From
+        </th>
+        <th>
+            Ride To
+        </th>
+        <th>
+            Miles
+        </th>
+        <th>
+            Ride Date
+        </th>
+        <th>
+            Ride Notes
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RideFromName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RideToName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Miles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RideDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RideNotes)
+            </td>
+            <td>
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RideId })
+                }
+
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.RideId })
+                }
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.RideId })
+                }
+            </td>
+
+
+
+        </tr>
+    }
+</table>
+<br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, MemberId = ViewBag.memberId, years = ViewBag.searchYear, chapter = ViewBag.chapter }))
+
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            @Scripts.Render("~/bundles/jqueryui")
+            @Styles.Render("~/Content/cssjqryUi")
+            @Scripts.Render("~/Scripts/jquery.validate.min.js")
+            @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+            @Styles.Render("~/Content/jquery-ui.css")
+            @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+            @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+            <script>
+
+
+                //$(function () {
+                //    $("#MemberId").change(function () {
+
+                //        var val = $(this).val();
+                //        $("#hidmemid").val(val);
+
+                //        var test = $("#hidmemid").val();
+
+                //        alert(test);
+
+
+                //    });
+                //});
+
+                $(document).ready(function () {
+
+                    //$("#create").click(function (event) {
+                    //    event.preventDefault();
+
+                    //    var val = $("#MemberId").val();
+                    //    var url = '/Rides/Create/';
+
+                    //    if ((val != null) && (val.length > 0))
+                    //        var url = '/Rides/Create/' + val;
+
+                    //    window.location.href = url;
+                    //    //alert(val);
+                    //});
+                   
+                    $("#reset").click(function (event) {
+                       
+                        event.preventDefault();
+                        var url = '/RidesReadOnly';
+                        window.location.href = url;
+                        
+                    });
+
+                    $("#search").click(function (event) {
+                        //event.preventDefault();
+                      
+                        var refresh = 0;
+
+                        var ddmemvalue = $('#MemberId option:selected').val();
+                        if (ddmemvalue.length == 0) {
+                            //alert("no member value");
+                            refresh = 1;
+                        }
+                        var ddyearvalue = $('#years option:selected').val();
+                        if (ddyearvalue.length == 0) {
+                            //alert("no years value");
+                            refresh = refresh + 1;
+                        }
+
+                        var searchstringvalue = $('#searchString').val();
+                        if (searchstringvalue.length == 0) {
+                            //alert("no search string value");
+                            refresh = refresh + 1;
+                        }
+                        
+                        if (refresh == 3) {
+                            var url = '/RidesReadOnly';
+                            window.location.href = url;
+                        }
+                    });
+
+                });
+
+
+
+                function changeTextboxes(val) {
+
+                    var url = '/RidesReadOnly?chapter=' + val;
+                    window.location.href = url;
+                }
+
+            </script>
+        }

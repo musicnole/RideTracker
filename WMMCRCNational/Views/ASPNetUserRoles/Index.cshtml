@@ -12,17 +12,34 @@
 </p>
 <table class="table">
     <tr>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberName)
+        </th>
     </tr>
 
-@foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
     </tr>
-}
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MemberName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoleName)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.UserId, role= item.RoleId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.RoleId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.RoleId })
+    </td>
+</tr>
+    }
 
 </table>
+

@@ -9,24 +9,24 @@ namespace WMMCRCNational.Helpers
 {
     public class Rides
     {
-        public static List<Ride> GetLisMemberNames(WMMCRC db, string yearSearchString)
+        public static List<Ride> GetLisMemberNames(WMMCRC db, string yearSearchString,int chapterId)
         {
-            List<Ride> allRidesList = new List<Ride>();
+            List<Ride> chapterRidesList = new List<Ride>();
             List<Ride> returnRideList = new List<Ride>();
 
-            allRidesList = db.Rides.ToList();
+            chapterRidesList = GetChapterRidesList(db,chapterId);
 
             int searchYear = 0;
 
             if (string.IsNullOrWhiteSpace(yearSearchString))
             {
 
-                returnRideList = GetThisYearRides(allRidesList);
+                returnRideList = GetThisYearRides(chapterRidesList);
             }
             else
             {
                 searchYear = Convert.ToInt32(yearSearchString);
-                returnRideList = GetThisYearRides(allRidesList, searchYear);
+                returnRideList = GetThisYearRides(chapterRidesList, searchYear);
             }
 
             Dictionary<int, string> dictMemberName = new Dictionary<int, string>();
@@ -44,6 +44,20 @@ namespace WMMCRCNational.Helpers
 
             }
             return returnRideList;
+        }
+
+        private static List<Ride> GetChapterRidesList(WMMCRC db, int chapterId)
+        {
+            List<Ride> allRidesList = new List<Ride>();
+
+            allRidesList = (from mem in db.Members
+                            join chapterrides in db.Rides on mem.MemberId equals chapterrides.MemberId
+                            where mem.ChapterId == chapterId
+                            select chapterrides).ToList();
+
+
+            return allRidesList;
+
         }
 
         public static IOrderedEnumerable<Ride> GetSearchView(int? MemberId, List<Ride> ridesListOrig)

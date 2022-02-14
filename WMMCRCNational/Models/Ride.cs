@@ -46,5 +46,8 @@ namespace WMMCRCNational.Models
 
         public string RideNotes { get; set; }
 
+        [NotMapped]
+        public int ChapterId { get; set; }
+
     }
 }

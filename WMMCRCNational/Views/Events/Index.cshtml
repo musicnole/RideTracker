@@ -7,75 +7,175 @@
 
 <h4>These page is a list of all the events listed on the home page.<br /> Use these pages to manage the events list on the home page.</h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-
-
-@using (Html.BeginForm("Index", "Events", FormMethod.Get))
+@if (ViewBag.admin)
 {
-    <div class="two-column">
-        <label class="int-box">Find Events by Year:</label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DropDownList("years", ViewData["YearDD"] as SelectList, "Select Year")
-        <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no year select then default to the current year </label>
-    </div>
-    <br />
-    <div class="two-column">
-        <label class="int-box">Search Event Title:</label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBox("searchString", ViewBag.CurrentFilter as string)
-    </div>
-    <br />
-    <div class="two-column">
-        <label class="int-box">Find Events by Chapter:</label>
-        &nbsp;@Html.DropDownList("chapter", ViewData["ChapterDD"] as SelectList, "Select Chapter")
-        <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no chapter select then default to All Chapters </label>
-    </div>
-
-    <br />
-    <div class="two-column">
-        <input type="submit" value="Search" id="search" class="btn btn-default" />&nbsp;&nbsp;&nbsp;
-        <input type="submit" value="Reset Search" id="reset" class="btn btn-default" />
-    </div>
-    <br />
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
 
 
-<table class="table">
-    <tr>
-        <th>
-            Chapter Name
-        </th>
-        <th>
-            Event Title
-        </th>
-        <th>
-            Event Date
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @using (Html.BeginForm("Index", "Events", FormMethod.Get))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChapterName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDate)
-            </td>
+        <div class="two-column">
+            <label class="int-box">Find Events by Year:</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DropDownList("years", ViewData["YearDD"] as SelectList, "Select Year")
+            <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no year select then default to the current year </label>
+        </div>
+        <br />
+        <div class="two-column">
+            <label class="int-box">Search Event Title:</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        </div>
+        <br />
+        <div class="two-column">
+            <label class="int-box">Find Events by Chapter:</label>
+            &nbsp;@Html.DropDownList("chapter", ViewData["ChapterDD"] as SelectList, "Select Chapter")
+            <label class="text-danger">&nbsp;&nbsp;&nbsp;* if no chapter select then default to All Chapters </label>
+        </div>
 
-
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.EventId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.EventId })
-            </td>
-        </tr>
+        <br />
+        <div class="two-column">
+            <input type="submit" value="Search" id="search" class="btn btn-default" />&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Reset Search" id="reset" class="btn btn-default" />
+        </div>
+        <br />
     }
 
-</table>
+
+    <table class="table">
+        <tr>
+            <th>
+                Chapter Name
+            </th>
+            <th>
+                Event Title
+            </th>
+            <th>
+                Event Date
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChapterName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDate)
+                </td>
+
+
+                <td>
+
+
+                    @Html.ActionLink("Details", "Details", new { id = item.EventId }) &nbsp;&nbsp;
+                    @if (ViewBag.admin)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EventId })
+                    }
+                    &nbsp; &nbsp;
+                    @if (ViewBag.admin)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EventId })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+        @Scripts.Render("~/Scripts/jquery.validate.min.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+        @Styles.Render("~/Content/jquery-ui.css")
+        @Scripts.Render("~/Scripts/jquery-1.12.4.js")
+        @Scripts.Render("~/Scripts/jquery-ui.js")
+
+
+        <script>
+
+
+            //$(function () {
+            //    $("#MemberId").change(function () {
+
+            //        var val = $(this).val();
+            //        $("#hidmemid").val(val);
+
+            //        var test = $("#hidmemid").val();
+
+            //        alert(test);
+
+
+            //    });
+            //});
+
+            $(document).ready(function () {
+
+                //$("#create").click(function (event) {
+                //    event.preventDefault();
+
+                //    var val = $("#MemberId").val();
+                //    var url = '/Rides/Create/';
+
+                //    if ((val != null) && (val.length > 0))
+                //        var url = '/Rides/Create/' + val;
+
+                //    window.location.href = url;
+                //    //alert(val);
+                //});
+
+                $("#reset").click(function (event) {
+
+                    event.preventDefault();
+                    var url = '/Events';
+                    window.location.href = url;
+
+                });
+
+                $("#search").click(function (event) {
+                    //event.preventDefault();
+
+                    var refresh = 0;
+
+                    //var ddmemvalue = $('#MemberId option:selected').val();
+                    //if (ddmemvalue.length == 0) {
+                    //    //alert("no member value");
+                    //    refresh = 1;
+                    //}
+                    var ddyearvalue = $('#years option:selected').val();
+                    if (ddyearvalue.length == 0) {
+                        //alert("no years value");
+                        refresh = refresh + 1;
+                    }
+
+                    var searchstringvalue = $('#searchString').val();
+                    if (searchstringvalue.length == 0) {
+                        //alert("no search string value");
+                        refresh = refresh + 1;
+                    }
+
+                    if (refresh == 3) {
+                        var url = '/Events';
+                        window.location.href = url;
+                    }
+                });
+
+            });
+
+
+
+
+
+        </script>
+    }
