@@ -15,10 +15,10 @@ namespace WMMCRCNational.Controllers
        // [Authorize]
         public ActionResult Index()
         {
-            // List<Event> eventsList = Helpers.Events.LookupChapterNames(db);
 
+            DateTime todayMinus1 = System.DateTime.Now.AddDays(-1);
             var eventListObj = (from a in db.Events
-                                where a.EventDate >= System.DateTime.Now
+                                where a.EventDate >= todayMinus1
                                 select new { a.EventId, a.ChapterId, a.EventTitle, a.EventDate, a.DateModified, a.DateCreated });
 
             List<Event> eventsList = new List<Event>();

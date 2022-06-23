@@ -7451,6 +7451,18 @@ div.Custom-two-column {
   column-gap: 50px;
 }
 
+.btn-export {
+    color: #ffffff;
+    background-color: #ff0000;
+    border-color: #ff0000;
+    float: right;
+    width: 115px;
+    border-color: #424242;
+    height: 27px;
+    padding: 5px 5px 5px 5px;
+    text-align:center;
+}
+
 /*div.Joecontainer {
     background-color: #FF0000;
     margin: auto;   

@@ -18,6 +18,12 @@ namespace WMMCRCNational
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               name: "RidesExport",
+               url: "{controller}/{action}",
+               defaults: new { controller = "Rides", action = "Export"}
+           );
         }
     }
 }

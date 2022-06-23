@@ -39,9 +39,11 @@
         <div class="two-column">
             <input type="submit" value="Search" id="search" class="btn btn-default" />&nbsp;&nbsp;&nbsp;
             <input type="submit" value="Reset Search" id="reset" class="btn btn-default" />
+            @Html.ActionLink("Export To Excel", "Export", null, new { @class= "btn-export" })
         </div>
+
         <br />
-    }
+       }
 
     <table class="table">
         <tr>
@@ -111,7 +113,7 @@
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, MemberId = ViewBag.memberId, years = ViewBag.searchYear }))
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, MemberId = ViewBag.memberId, years = ViewBag.searchYear}))
 
 
 
@@ -127,7 +129,7 @@
         @Scripts.Render("~/Scripts/jquery-ui.js")
 
 
-        <script>
+<script>
 
 
             //$(function () {
@@ -193,7 +195,11 @@
                     }
                 });
 
+                $("#export").click(function (event) {
+                    var refresh = 0;
+                    alert(event);
+                });
             });
 
-        </script>
+</script>
     }

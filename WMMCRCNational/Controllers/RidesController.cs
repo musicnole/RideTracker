@@ -19,7 +19,7 @@ namespace WMMCRCNational.Models
         private WMMCRC db = new WMMCRC();
         private int chapterId { get; set; }
         // GET: Rides
-        public ActionResult Index(string searchString, string currentFilter, int? page, int? MemberId, string years, string button)
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? MemberId, string years)
         {
             CheckSecurity();
 
@@ -31,6 +31,9 @@ namespace WMMCRCNational.Models
 
             ViewBag.memberId = MemberId;
             ViewBag.searchYear = years;
+            Session["searchMember"] = MemberId;
+            Session["searchYears"] = years;
+            Session["searchString"] = searchString;
 
             //If years is null default to current year
             if (string.IsNullOrEmpty(years))
@@ -82,7 +85,7 @@ namespace WMMCRCNational.Models
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
-            return View(returnRides.ToPagedList(pageNumber, pageSize));
+           return View(returnRides.ToPagedList(pageNumber, pageSize));
            
         }
         
@@ -107,6 +110,65 @@ namespace WMMCRCNational.Models
             }
             return View(ride);
         }
+        [Authorize]
+        public ActionResult Export()
+        {
+            IOrderedEnumerable<Ride> returnRides = ExportData();
+            Response.AddHeader("content-disposition", "attachment;filename=Report1.xlsx");
+            Response.AddHeader("Content-Type", "application/vnd.ms-excel");
+            
+            return View(returnRides);
+        }
+
+        private IOrderedEnumerable<Ride> ExportData()
+        {
+            CheckSecurity();
+            string ExpSearchString = string.Empty;
+            int? ExpMemberId = null;
+            string ExpYears = string.Empty;
+            if ((Session["searchString"]!=null) &&(!string.IsNullOrEmpty(Session["searchString"].ToString()))) ExpSearchString = Session["searchString"].ToString();
+            if((Session["searchMember"] != null) && (!string.IsNullOrEmpty(Session["searchMember"].ToString()))) ExpMemberId = Convert.ToInt32(Session["searchMember"]);
+            if((Session["searchYears"] != null) && (!string.IsNullOrEmpty(Session["searchYears"].ToString())))  ExpYears = Session["searchYears"].ToString();
+
+            //If years is null default to current year
+            if (string.IsNullOrEmpty(ExpYears))
+            {
+                ExpYears = System.DateTime.Now.Year.ToString();
+            }
+
+          
+             
+            //End of first set of code for paging
+
+            IOrderedEnumerable<Ride> returnRides;
+
+            // This Returns all the rides and the Clubhouse Names
+            List<Ride> ridesList = Helpers.Rides.GetLisMemberNames(db, ExpYears, chapterId);
+
+            // If the year is not specified then want to default to this years rides
+            if (string.IsNullOrWhiteSpace(ExpYears))
+            {
+                List<Ride> rideListCurrentYear = Helpers.Rides.GetThisYearRides(ridesList);
+                //This returns the list of rindes for a specific Member
+                returnRides = Helpers.Rides.GetSearchView(ExpMemberId, rideListCurrentYear);
+            }
+            else
+            {
+                //This returns the list of rindes for a specific Member
+                returnRides = Helpers.Rides.GetSearchView(ExpMemberId, ridesList);
+            }
+
+            if (!string.IsNullOrWhiteSpace(ExpYears))
+            {
+                returnRides = Helpers.Rides.GetSearchDateView(returnRides, ExpYears);
+            }
+
+            if (!string.IsNullOrWhiteSpace(ExpSearchString))
+            {
+                returnRides = Helpers.Rides.GetSearchRideNotes(returnRides, ExpSearchString);
+            }
+            return returnRides;
+        }
 
         // GET: Rides/Create
         [Authorize]
@@ -124,7 +186,7 @@ namespace WMMCRCNational.Models
 
             return View();
         }
-
+               
         private void FillDropDowns(int? memberSelected)
         {
             //Member dd
